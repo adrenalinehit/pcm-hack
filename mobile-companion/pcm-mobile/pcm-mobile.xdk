@@ -6,14 +6,22 @@
       "projectTypeName": "com.intel.xdk.projecttype.webapp",
       "src": "webapp/template-tab-view-ad/sample.zip",
       "projectGuid": "50d6505f-9ec2-4c43-80bb-a35a8460d932",
-      "lastModifiedDate": 1455099427428,
+      "lastModifiedDate": 1455114865283,
       "creationDate": 1455099269986
     },
     "XDK-app-designer": "true",
     "sourceDirectory": "www",
     "startFile": "index.html",
     "projectFiles": {},
-    "projectDirectories": {},
+    "projectDirectories": {
+      "xdk/services/iodocs": {
+        "settings": {
+          "project": {
+            "XDK-generated": "true"
+          }
+        }
+      }
+    },
     "libraries": [],
     "serviceMethods": [],
     "cordovaPluginsDirectory": "plugins",

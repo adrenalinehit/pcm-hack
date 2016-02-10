@@ -19,3 +19,26 @@
 
 
 // ...additional event handlers here...
+
+function getComfortFactor(){
+    
+    var url = 'http://10.163.12.210:8080/comfortValue';
+    $.ajax({url: url,
+            success: function(data){
+                $('#comfort').text(data.value);
+            }
+    });
+ 
+    setTimeout(getComfortFactor, 1000);
+}
+
+function onDeviceReady() {
+    // Now safe to use device APIs
+    
+    getComfortFactor();    
+
+}
+
+document.addEventListener("app.Ready", onDeviceReady, false);
+
+
