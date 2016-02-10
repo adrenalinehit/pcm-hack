@@ -26,38 +26,17 @@ var mraa = require('mraa'); //require mraa
 console.log('MRAA Version: ' + mraa.getVersion()); //write the mraa version to the console
 
 var analogPin0 = new mraa.Aio(1); //setup access analog input Analog pin #0 (A0)
-var analogValue = analogPin0.read(); //read the value of the analog pin
-console.log(analogValue); //write the value of the analog pin to the console
 
 var dgram = require('dgram');
 var client = dgram.createSocket('udp4');
 
 var day = 86400000;
 // Sample data, replace it desired values
-var data = [{
-    sensorName : "temp",
-    sensorType: "temperature.v1.0",
-    observations: [{
-        on: new Date().getTime(),
-        value: analogValue
-    }]
-}];
 
 // UDP Options
 var options = {
     host : '127.0.0.1',
     port : 41234
-};
-
-function registerNewSensor(name, type, callback){
-    var msg = JSON.stringify({
-        n: name,
-        t: type
-    });
-
-    var sentMsg = new Buffer(msg);
-    console.log("Registering sensor: " + sentMsg);
-    client.send(sentMsg, 0, sentMsg.length, options.port, options.host, callback);
 };
 
 function sendObservation(name, value, on){
@@ -87,13 +66,23 @@ client.on("message", function(mesg, rinfo){
     }
 });
 
-data.forEach(function(item) {
-    registerNewSensor(item.sensorName, item.sensorType, function () {
+function doSend() {
+    var analogValue = analogPin0.read(); //read the value of the analog pin
+    console.log(analogValue); //write the value of the analog pin to the console
+    var data = [{
+        sensorName : "temp",
+        sensorType: "temperature.v1.0",
+        observations: [{
+            on: new Date().getTime(),
+            value: analogValue
+        }]
+    }];
+    data.forEach(function(item) {
         item.observations.forEach(function (observation) {
-            setTimeout(function () {
-                sendObservation(item.sensorName, observation.value, observation.on);
-            }, 5000);
+            sendObservation(item.sensorName, observation.value, observation.on);
         });
     });
-});
+    setTimeout(doSend, 1000);
+};
 
+doSend();
