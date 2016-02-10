@@ -1,0 +1,102 @@
+{
+  "project": {
+    "projectSettingsVersion": "2.0.0",
+    "initialAutoPluginCount": 0,
+    "currentBuildConfiguration": "Android",
+    "projectFiles": {},
+    "projectDirectories": {}
+  },
+  "iot-tab": {
+    "fileStatus": {
+      "actuation-sample.js": {
+        "previousModTime": 1455102498777,
+        "modified": 1455102498777,
+        "seen": true,
+        "name": "actuation-sample.js"
+      },
+      "index.js": {
+        "previousModTime": 1455108856544,
+        "modified": 1455108856544,
+        "seen": true,
+        "name": "index.js"
+      },
+      "IoTKitSamplesNode.xdk": {
+        "previousModTime": 1455108767287,
+        "modified": 1455108767287,
+        "seen": true,
+        "name": "IoTKitSamplesNode.xdk"
+      },
+      "IoTKitSamplesNode.xdke": {
+        "previousModTime": 1455108808141,
+        "modified": 1455108808141,
+        "seen": true,
+        "name": "IoTKitSamplesNode.xdke"
+      },
+      "mqtt-sample.js": {
+        "previousModTime": 1455102498779,
+        "modified": 1455102498779,
+        "seen": true,
+        "name": "mqtt-sample.js"
+      },
+      "ninja-sample.js": {
+        "previousModTime": 1455102498782,
+        "modified": 1455102498782,
+        "seen": true,
+        "name": "ninja-sample.js"
+      },
+      "package.json": {
+        "previousModTime": 1455102498784,
+        "modified": 1455102498784,
+        "seen": true,
+        "name": "package.json"
+      },
+      "rest-sample.js": {
+        "previousModTime": 1455102498786,
+        "modified": 1455102498786,
+        "seen": true,
+        "name": "rest-sample.js"
+      },
+      "tcp-sample.js": {
+        "previousModTime": 1455108714201,
+        "modified": 1455108714201,
+        "seen": true,
+        "name": "tcp-sample.js"
+      },
+      "sensors/sensor-analog-temp.js": {
+        "previousModTime": 1455102498788,
+        "modified": 1455102498788,
+        "seen": true,
+        "name": "sensors/sensor-analog-temp.js"
+      },
+      "sensors/sensor-digital.js": {
+        "previousModTime": 1455102498791,
+        "modified": 1455102498791,
+        "seen": true,
+        "name": "sensors/sensor-digital.js"
+      },
+      "sensors/sensor-gpio.js": {
+        "previousModTime": 1455102498793,
+        "modified": 1455102498793,
+        "seen": true,
+        "name": "sensors/sensor-gpio.js"
+      },
+      "sensors/sensor-serial.js": {
+        "previousModTime": 1455102498795,
+        "modified": 1455102498795,
+        "seen": true,
+        "name": "sensors/sensor-serial.js"
+      },
+      "xdk/project-info.json": {
+        "previousModTime": 1455108767265,
+        "modified": 1455108767265,
+        "seen": true,
+        "name": "xdk/project-info.json"
+      }
+    },
+    "boardFileStatus": {
+      "index.js": {
+        "previousModTime": 1455108860633
+      }
+    }
+  }
+}
