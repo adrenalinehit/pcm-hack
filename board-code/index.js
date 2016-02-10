@@ -34,6 +34,15 @@ var soundSensor = new mraa.Aio(2);
 
 var comfortLevel;
 
+var temperatureRange = 40;
+var temperaturePerfect = 18;
+
+var soundRange = 500;
+var soundPerfect = 10;
+
+var airQualityRange = 1023;
+var airQualityPefect = 10;
+
 var blueLed = new mraa.Gpio(2);
 blueLed.dir(mraa.DIR_OUT);
 var redLed = new mraa.Gpio(3);
@@ -91,9 +100,13 @@ function doSend() {
     var resistance=(1023-rawTemperature)*10000/rawTemperature; // get the resistance of the sensor
     var temperature=1/(Math.log(resistance/10000)/temperatureSensorB+1/298.15)-273.15; // convert to temperature via datasheet
     
-    comfortLevel = (temperature / 30 + airQuality / 1023 + sound / 256) * (100 / 3);
+    comfortLevel = Math.max(1 - (
+            (temperature - temperaturePerfect) / temperatureRange +
+            (airQuality - airQualityPefect) / airQualityRange +
+            (sound - soundPerfect) / soundRange
+        ), 0);
     
-    redLed.write(comfortLevel < 50 ? 1 : 0);
+    redLed.write(comfortLevel < 0.5 ? 1 : 0);
     
     console.log("T: " + temperature + "; AQ: " + airQuality + "; S: " + sound + "; CL: " + comfortLevel);
 
