@@ -34,8 +34,16 @@ var soundSensor = new mraa.Aio(2);
 
 var comfortLevel;
 
-var redLed = new mraa.Gpio(3); //setup digital read on Digital pin #5 (D5)
-redLed.dir(mraa.DIR_OUT); //set the gpio direction to output
+var blueLed = new mraa.Gpio(2);
+blueLed.dir(mraa.DIR_OUT);
+var redLed = new mraa.Gpio(3);
+redLed.dir(mraa.DIR_OUT);
+var greenLed = new mraa.Gpio(4);
+greenLed.dir(mraa.DIR_OUT);
+
+blueLed.write(0);
+redLed.write(0);
+greenLed.write(0);
 
 var dgram = require('dgram');
 var client = dgram.createSocket('udp4');
