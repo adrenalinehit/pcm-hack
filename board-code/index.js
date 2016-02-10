@@ -29,6 +29,9 @@ var temperatureSensor = new mraa.Aio(0);
 var airQualitySensor = new mraa.Aio(1);
 var soundSensor = new mraa.Aio(2);
 
+var redLed = new mraa.Gpio(3); //setup digital read on Digital pin #5 (D5)
+redLed.dir(mraa.DIR_OUT); //set the gpio direction to output
+
 var dgram = require('dgram');
 var client = dgram.createSocket('udp4');
 
@@ -74,6 +77,8 @@ function doSend() {
     
     var resistance=(1023-rawTemperature)*10000/rawTemperature; // get the resistance of the sensor
     var temperature=1/(Math.log(resistance/10000)/temperatureSensorB+1/298.15)-273.15; // convert to temperature via datasheet
+    
+    redLed.write(airQuality < 512);
     
     console.log("T: " + temperature + "; AQ: " + airQuality + "; S: " + sound);
 
