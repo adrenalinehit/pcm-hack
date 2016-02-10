@@ -122,6 +122,14 @@ function doSend() {
                 on: now,
                 value: airQuality
             }]
+        },
+        {
+            sensorName : "comfortlevel",
+            sensorType: "comfortlevel.v1.0",
+            observations: [{
+                on: now,
+                value: comfortLevel
+            }]
         }
         ];
     data.forEach(function(item) {
