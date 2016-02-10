@@ -32,6 +32,8 @@ var temperatureSensor = new mraa.Aio(0);
 var airQualitySensor = new mraa.Aio(1);
 var soundSensor = new mraa.Aio(2);
 
+var comfortLevel;
+
 var redLed = new mraa.Gpio(3); //setup digital read on Digital pin #5 (D5)
 redLed.dir(mraa.DIR_OUT); //set the gpio direction to output
 
@@ -81,9 +83,11 @@ function doSend() {
     var resistance=(1023-rawTemperature)*10000/rawTemperature; // get the resistance of the sensor
     var temperature=1/(Math.log(resistance/10000)/temperatureSensorB+1/298.15)-273.15; // convert to temperature via datasheet
     
-    redLed.write(airQuality < 512 ? 1 : 0);
+    comfortLevel = (temperature / 30 + airQuality / 1023 + sound / 256) * (100 / 3);
     
-    console.log("T: " + temperature + "; AQ: " + airQuality + "; S: " + sound);
+    redLed.write(comfortLevel < 50 ? 1 : 0);
+    
+    console.log("T: " + temperature + "; AQ: " + airQuality + "; S: " + sound + "; CL: " + comfortLevel);
 
     var now = new Date().getTime();
     var data = [
@@ -131,8 +135,7 @@ server.get('/comfortValue', getValue);
 
 function getValue(req, res, next)
 {
- // send response with reading the GPIO
-    res.json({value:99});
+    res.json({value:comfortLevel});
     next();
 };
 
