@@ -25,13 +25,14 @@
 var mraa = require('mraa'); //require mraa
 console.log('MRAA Version: ' + mraa.getVersion()); //write the mraa version to the console
 
-var analogPin0 = new mraa.Aio(1); //setup access analog input Analog pin #0 (A0)
+var temperatureSensor = new mraa.Aio(0);
+var airQualitySensor = new mraa.Aio(1);
+var soundSensor = new mraa.Aio(2);
 
 var dgram = require('dgram');
 var client = dgram.createSocket('udp4');
 
-var day = 86400000;
-// Sample data, replace it desired values
+var temperatureSensorB = 3975;  // "B value of the thermistor"
 
 // UDP Options
 var options = {
@@ -67,16 +68,42 @@ client.on("message", function(mesg, rinfo){
 });
 
 function doSend() {
-    var analogValue = analogPin0.read(); //read the value of the analog pin
-    console.log(analogValue); //write the value of the analog pin to the console
-    var data = [{
-        sensorName : "temp",
-        sensorType: "temperature.v1.0",
-        observations: [{
-            on: new Date().getTime(),
-            value: analogValue
-        }]
-    }];
+    var rawTemperature = temperatureSensor.read();
+    var airQuality = airQualitySensor.read();
+    var sound = soundSensor.read();
+    
+    var resistance=(1023-rawTemperature)*10000/rawTemperature; // get the resistance of the sensor
+    var temperature=1/(Math.log(resistance/10000)/temperatureSensorB+1/298.15)-273.15; // convert to temperature via datasheet
+    
+    console.log("T: " + temperature + "; AQ: " + airQuality + "; S: " + sound);
+
+    var now = new Date().getTime();
+    var data = [
+        {
+            sensorName : "temp",
+            sensorType: "temperature.v1.0",
+            observations: [{
+                on: now,
+                value: temperature
+            }]
+        },
+        {
+            sensorName : "sound",
+            sensorType: "sound.v1.0",
+            observations: [{
+                on: now,
+                value: sound
+            }]
+        },
+        {
+            sensorName : "airquality",
+            sensorType: "airquality.v1.0",
+            observations: [{
+                on: now,
+                value: airQuality
+            }]
+        }
+        ];
     data.forEach(function(item) {
         item.observations.forEach(function (observation) {
             sendObservation(item.sensorName, observation.value, observation.on);

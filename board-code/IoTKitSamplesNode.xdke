@@ -15,8 +15,8 @@
         "name": "actuation-sample.js"
       },
       "index.js": {
-        "previousModTime": 1455110103238,
-        "modified": 1455110103238,
+        "previousModTime": 1455111927685,
+        "modified": 1455111927685,
         "seen": true,
         "name": "index.js"
       },
@@ -27,8 +27,8 @@
         "name": "IoTKitSamplesNode.xdk"
       },
       "IoTKitSamplesNode.xdke": {
-        "previousModTime": 1455108860723,
-        "modified": 1455108860723,
+        "previousModTime": 1455111594743,
+        "modified": 1455111594743,
         "seen": true,
         "name": "IoTKitSamplesNode.xdke"
       },
@@ -95,40 +95,40 @@
     },
     "boardFileStatus": {
       "actuation-sample.js": {
-        "previousModTime": 1455110125221
+        "previousModTime": 1455111966263
       },
       "index.js": {
-        "previousModTime": 1455110125221
+        "previousModTime": 1455111966263
       },
       "mqtt-sample.js": {
-        "previousModTime": 1455110125221
+        "previousModTime": 1455111966263
       },
       "ninja-sample.js": {
-        "previousModTime": 1455110125221
+        "previousModTime": 1455111966263
       },
       "package.json": {
-        "previousModTime": 1455110125221
+        "previousModTime": 1455111966263
       },
       "rest-sample.js": {
-        "previousModTime": 1455110125221
+        "previousModTime": 1455111966263
       },
       "tcp-sample.js": {
-        "previousModTime": 1455110125221
+        "previousModTime": 1455111966263
       },
       "sensors/sensor-analog-temp.js": {
-        "previousModTime": 1455110125221
+        "previousModTime": 1455111966263
       },
       "sensors/sensor-digital.js": {
-        "previousModTime": 1455110125221
+        "previousModTime": 1455111966263
       },
       "sensors/sensor-gpio.js": {
-        "previousModTime": 1455110125221
+        "previousModTime": 1455111966263
       },
       "sensors/sensor-serial.js": {
-        "previousModTime": 1455110125221
+        "previousModTime": 1455111966263
       },
       "xdk/project-info.json": {
-        "previousModTime": 1455110125221
+        "previousModTime": 1455111966263
       }
     }
   }
