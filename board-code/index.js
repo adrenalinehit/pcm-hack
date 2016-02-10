@@ -25,6 +25,9 @@
 var mraa = require('mraa'); //require mraa
 console.log('MRAA Version: ' + mraa.getVersion()); //write the mraa version to the console
 
+//simple server
+var restify = require('restify');
+
 var temperatureSensor = new mraa.Aio(0);
 var airQualitySensor = new mraa.Aio(1);
 var soundSensor = new mraa.Aio(2);
@@ -115,6 +118,22 @@ function doSend() {
         });
     });
     setTimeout(doSend, 1000);
+};
+
+// create a http server
+var server = restify.createServer();
+
+// use a body parser, needed for post request with body
+server.use(restify.bodyParser());
+
+// Set the route with callback function method GET and POST
+server.get('/comfortValue', getValue);
+
+function getValue(req, res, next)
+{
+ // send response with reading the GPIO
+    res.json({value:99});
+    next();
 };
 
 doSend();
