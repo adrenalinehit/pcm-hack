@@ -22,11 +22,8 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-var mraa = require('mraa'); //require mraa
+var mraa = require('mraa');
 console.log('MRAA Version: ' + mraa.getVersion()); //write the mraa version to the console
-
-//simple server
-var restify = require('restify');
 
 var temperatureSensor = new mraa.Aio(0);
 var airQualitySensor = new mraa.Aio(1);
@@ -152,30 +149,5 @@ function doSend() {
     });
     setTimeout(doSend, 1000);
 };
-
-// create a http server
-var server = restify.createServer();
-
-// use a body parser, needed for post request with body
-server.use(restify.bodyParser());
-
-server.use(
-  function crossOrigin(req,res,next){
-    res.header("Access-Control-Allow-Origin", "*");
-//    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    return next();
-  }
-);
-
-// Set the route with callback function method GET and POST
-server.get('/comfortValue', getValue);
-
-function getValue(req, res, next)
-{
-    res.json({value:comfortLevel});
-    next();
-};
-
-server.listen(8080, function() {});
 
 doSend();
