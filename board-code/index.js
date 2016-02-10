@@ -138,6 +138,14 @@ var server = restify.createServer();
 // use a body parser, needed for post request with body
 server.use(restify.bodyParser());
 
+server.use(
+  function crossOrigin(req,res,next){
+    res.header("Access-Control-Allow-Origin", "*");
+//    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    return next();
+  }
+);
+
 // Set the route with callback function method GET and POST
 server.get('/comfortValue', getValue);
 
