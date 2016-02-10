@@ -81,7 +81,7 @@ function doSend() {
     var resistance=(1023-rawTemperature)*10000/rawTemperature; // get the resistance of the sensor
     var temperature=1/(Math.log(resistance/10000)/temperatureSensorB+1/298.15)-273.15; // convert to temperature via datasheet
     
-    redLed.write(airQuality < 512);
+    redLed.write(airQuality < 512 ? 1 : 0);
     
     console.log("T: " + temperature + "; AQ: " + airQuality + "; S: " + sound);
 
@@ -135,5 +135,7 @@ function getValue(req, res, next)
     res.json({value:99});
     next();
 };
+
+server.listen(8080, function() {});
 
 doSend();
