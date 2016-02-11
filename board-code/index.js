@@ -25,6 +25,12 @@
 var mraa = require('mraa');
 console.log('MRAA Version: ' + mraa.getVersion()); //write the mraa version to the console
 
+var lcdLibrary = require('jsupm_i2clcd');
+var lcd = new lcdLibrary.Jhd1313m1(0, 0x3E, 0x62);
+lcd.setCursor(0, 0);
+lcd.write('Comfort level   ');
+lcd.setColor(255, 255, 255);
+
 var temperatureSensor = new mraa.Aio(0);
 var airQualitySensor = new mraa.Aio(1);
 var soundSensor = new mraa.Aio(2);
@@ -34,8 +40,8 @@ var comfortLevel;
 var temperatureRange = 40;
 var temperaturePerfect = 18;
 
-var soundRange = 500;
-var soundPerfect = 10;
+var soundRange = 1023;
+var soundPerfect = 200;
 
 var airQualityRange = 1023;
 var airQualityPefect = 10;
@@ -51,15 +57,14 @@ blueLed.write(0);
 redLed.write(0);
 greenLed.write(0);
 
-var dgram = require('dgram');
-var client = dgram.createSocket('udp4');
+var net = require('net');
+var client = new net.Socket();
 
 var temperatureSensorB = 3975;  // "B value of the thermistor"
 
-// UDP Options
-var options = {
-    host : '127.0.0.1',
-    port : 41234
+var tcpOptions = {
+    host: 'localhost',
+    port: 7070
 };
 
 function sendObservation(name, value, on){
@@ -68,26 +73,11 @@ function sendObservation(name, value, on){
         v: value,
         on: on
     });
-
-    var sentMsg = new Buffer(msg);
+    
+    var sentMsg = msg.length + "#" + msg;
     console.log("Sending observation: " + sentMsg);
-    client.send(sentMsg, 0, sentMsg.length, options.port, options.host);
+    client.write(sentMsg);
 };
-
-client.on("message", function(mesg, rinfo){
-    console.log('UDP message from %s:%d', rinfo.address, rinfo.port);
-    var a = JSON.parse(mesg);
-    console.log(" m ", JSON.parse(mesg));
-
-    if (a.b == 5) {
-        client.send(message, 0, message.length, PORT, HOST, function(err, bytes) {
-            if (err) throw err;
-            console.log('UDP message sent to ' + HOST +':'+ PORT);
-            // client.close();
-
-        });
-    }
-});
 
 function doSend() {
     var rawTemperature = temperatureSensor.read();
@@ -97,13 +87,18 @@ function doSend() {
     var resistance=(1023-rawTemperature)*10000/rawTemperature; // get the resistance of the sensor
     var temperature=1/(Math.log(resistance/10000)/temperatureSensorB+1/298.15)-273.15; // convert to temperature via datasheet
     
-    comfortLevel = Math.max(1 - (
+    comfortLevel = Math.min(Math.max(1 - (
             (temperature - temperaturePerfect) / temperatureRange +
             (airQuality - airQualityPefect) / airQualityRange +
             (sound - soundPerfect) / soundRange
-        ), 0);
+        ), 0), 1);
     
     redLed.write(comfortLevel < 0.5 ? 1 : 0);
+
+    lcd.setCursor(1, 0);
+    lcd.write(Math.round(comfortLevel * 100) + "   ");
+    var greenBlue = comfortLevel * 255;
+    lcd.setColor(255, greenBlue, greenBlue);
     
     console.log("T: " + temperature + "; AQ: " + airQuality + "; S: " + sound + "; CL: " + comfortLevel);
 
@@ -150,4 +145,7 @@ function doSend() {
     setTimeout(doSend, 1000);
 };
 
-doSend();
+client.connect(tcpOptions.port, tcpOptions.host, function() {
+    console.log("Connected!");
+    doSend();
+});
