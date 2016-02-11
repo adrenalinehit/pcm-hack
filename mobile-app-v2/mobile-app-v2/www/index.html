@@ -1,0 +1,46 @@
+<!DOCTYPE html><!--HTML5 doctype-->
+<html>
+    <head>
+		<!--
+		 * Copyright (c) 2013, Intel Corporation. All rights reserved.
+		 * Please see the included README.md file for license terms and conditions.
+		-->
+        <script>
+            (function() {
+                if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) 
+                {
+                    var msViewportStyle = document.createElement("style");
+                    msViewportStyle.appendChild(document.createTextNode("@-ms-viewport{width:auto!important}"));
+                    document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+                }   
+            })();
+        </script>
+        <title>Responsive Button</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <link href="css/main.css" rel="stylesheet" type="text/css">
+        <script src='cordova.js'></script> 
+        <script src="js/main.js" type="text/javascript"></script>
+    </head>
+    
+    <body>
+        <div class="masthead">
+            <img class="logo"/>
+            <h3>Personal Comfort Monitor</h3>
+         </div>
+        <div class="content">
+        <div class="spacer"></div>
+            
+            <h1 class="white">Comfort Score</h1>
+            
+            <h1 id="thescore" class="score" ></h1>
+        
+        </div>
+        
+        <div class="bottom">
+            <img class="cf1"/>
+            <img class="hackfest"/>
+        </div>
+        
+    </body>
+</html>
