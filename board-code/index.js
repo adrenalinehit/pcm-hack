@@ -1,29 +1,21 @@
 /*
- Copyright (c) 2012, Intel Corporation
-
- Redistribution and use in source and binary forms, with or without modification,
- are permitted provided that the following conditions are met:
-
- * Redistributions of source code must retain the above copyright notice,
- this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice,
- this list of conditions and the following disclaimer in the documentation
- and/or other materials provided with the distribution.
-
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
- ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+  Personal Comfort Monitor: prototype application for a wearable device which allows
+  calculation of a "comfort score" at locations on the London Underground network,
+  and uploading of that data to the Intel IoT Analytics Cloud http://enableiot.com/
+  
+  See more details at http://www.the-hackfest.com/events/iot-tech-expo-hackathon/projects/personal-comfort-monitor/
+  
+  Winner of first place in the Intel Edison category at the IoT Tech Expo Hackathon
+  in London, February 2016.
+  
+  Control F1 is a digital technology company based in Huddersfield, UK.
+  We create, we craft, we code.
+  
+  Visit us at http://www.controlf1.co.uk/
+*/
 
 var mraa = require('mraa');
-console.log('MRAA Version: ' + mraa.getVersion()); //write the mraa version to the console
+console.log('MRAA Version: ' + mraa.getVersion());
 
 var lcdLibrary = require('jsupm_i2clcd');
 var lcd = new lcdLibrary.Jhd1313m1(0, 0x3E, 0x62);
