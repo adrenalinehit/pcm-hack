@@ -53,20 +53,20 @@ a:focus, a:active, a:hover { outline:0; }
 
 .logo {
     background-color:white;
-    content:url("../images/logo.png"); 
+    content:url("../images/logo.png");
     float:left;
     margin:10px;
 }
 
 .cf1 {
     background-color:white;
-    content:url("../images/Control_F1_Logo_Horiz_Screen_125px.png"); 
+    content:url("../images/Control_F1_Logo_Horiz_Screen_125px.png");
     margin:10px;
 }
 
 .hackfest {
     background-color:white;
-    content:url("../images/hackfest.png"); 
+    content:url("../images/hackfest.png");
     float:right;
     margin:10px;
 }

@@ -7,6 +7,50 @@ var init = function () {
     
 };
 
+
+function getComfortFactorV2(){
+  
+    var dataUrl = "https://dashboard.us.enableiot.com/v1/api/accounts/4a2fcacc-2851-4420-a450-24b7cce696e9/data/search";
+    var dataRequest = {"from":-10,"targetFilter":{"deviceList": ["pcm-hack"]},"maxItems":1,"metrics": [{"id":"27b30969-7ddc-4698-ba80-06acf6ebf95e"}]};
+    
+    var tokenRequestURL = "https://dashboard.us.enableiot.com/v1/api/auth/token";
+    var tokenRequestBody = {"username": "jorallan@gmail.com","password":"ku!dMcTeEh[Bt$^,{4-VioDFMc=U[<2E"};
+    
+    $.ajax({
+     
+          url: tokenRequestURL,
+            data: JSON.stringify(tokenRequestBody),
+            type: "POST",
+            dataType: "text",
+            contentType:"application/json", 
+            headers: {"Content-Type":"application/json"},
+            success: function(data){
+        
+                var auth = "Bearer " + (JSON.parse(data)).token;
+                
+                $.ajax({
+                    url: dataUrl,
+                    data: JSON.stringify(dataRequest),
+                    type: "POST",
+                    dataType: "text",
+                    contentType:"application/json", 
+                    headers: {"Content-Type":"application/json", "Authorization": auth },
+                    success: function(d){
+                        var score = (JSON.parse(d)).series[0].points[0].value;
+
+                        $('#thescore').text( Math.round(score*100)+"%");
+                    }
+
+            });
+               
+        }        
+        
+    });
+    
+    setTimeout(getComfortFactorV2, 1000);
+}
+
+
 window.addEventListener("load", init, false);  
 
  // Prevent Default Scrolling 
@@ -27,7 +71,8 @@ function onDeviceReady()
     if( window.Cordova && navigator.splashscreen ) {     // Cordova API detected
         navigator.splashscreen.hide();                 // hide splash screen
     }
-
+    console.log("anything?");
+    getComfortFactorV2();
 }
 
 document.addEventListener("deviceready",onDeviceReady,false); 
